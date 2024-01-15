@@ -1,20 +1,23 @@
 version: "3.7"
 services:
     fpm:
-      image: svikramjeet/php7.3
-      container_name: php-fpm
-      volumes:
-        - ./:/var/www/html
-      ports: 
-        - "8080:8080"
-      networks:
-        - development-network
+        image: php80-fpm
+        container_name: php-fpm
+        build:
+            dockerfile: ./Dockerfile
+            context: ./
+        volumes:
+            - ./:/var/www/html
+        ports:
+            - "80:8000"
+        networks:
+            - development-network
     db:
-      image: mysql 
+      image: mysql
       container_name: database
       environment:
         MYSQL_ROOT_PASSWORD: root123
-      ports: 
+      ports:
         - "3307:3306"
       networks:
         - development-network
